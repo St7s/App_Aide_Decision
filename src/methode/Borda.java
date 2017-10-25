@@ -1,7 +1,5 @@
 package methode;
 
-import java.util.Arrays;
-
 public class Borda {
 
 	public static int[] calculBorda(int[][] donnees) {
