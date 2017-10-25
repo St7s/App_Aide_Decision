@@ -1,7 +1,6 @@
 package tools;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,17 +13,16 @@ public class CSVReader {
 		BufferedReader br = null;
 		String line = "";
 
-		int x = -1;
-		int y = 0;
+		int nbCol = -1;
+		int nbLin = 0;
 
-		// int[][] result = new int[] {};
-
+		//on compte le nombre de ligne et de colonne
 		try {
 			br = new BufferedReader(new FileReader(filePath));
 			while ((line = br.readLine()) != null) {
-				if (y == -1)
-					y = line.split(separator).length;
-				x++;
+				if (nbCol == -1)
+					nbCol = line.split(separator).length;
+				nbLin++;
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -38,17 +36,8 @@ public class CSVReader {
 			}
 		}
 
-		//TODO ADRIEN : WTF
-		System.out.println(x + "_" + y);
-		int[][] result = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}} ;
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				result[i][j] = 0;
-			}
-			
-		}
-		
-		Affichage.afficheDonnees(result);
+		int[][] result =  new int[nbLin][nbCol];
+	
 		int numeroLigne = 0;
 		try {
 			br = new BufferedReader(new FileReader(filePath));

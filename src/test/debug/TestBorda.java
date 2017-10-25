@@ -8,8 +8,8 @@ public class TestBorda {
 
 	public static void main(String[] args) {
 		
-		CSVReader.giveMeTab("data/vote_2.csv", ",");
-		int[][] donnees = { { 3, 3, 3, 1 }, { 2, 2, 1, 3 }, { 1, 1, 2, 2 } };
+		int[][] donnees = CSVReader.giveMeTab("data/vote_2.csv", ",");
+		//int[][] donnees = { { 3, 3, 3, 1 }, { 2, 2, 1, 3 }, { 1, 1, 2, 2 } };
 
 		Affichage.afficheDonnees(donnees);
 
