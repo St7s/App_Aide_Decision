@@ -8,7 +8,7 @@ public class Borda {
 		int nbCandidat = donnees.length;
 		int nbVotant = donnees[0].length;
 
-		int[] resultBorda = new int[3];
+		int[] resultBorda = new int[nbCandidat];
 
 		for (int i = 0; i < nbCandidat; i++) {
 			for (int j = 0; j < nbVotant; j++) {
@@ -18,7 +18,5 @@ public class Borda {
 
 		return resultBorda;
 	}
-
-
 
 }
