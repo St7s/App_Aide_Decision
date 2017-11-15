@@ -37,23 +37,15 @@ public class Affichage {
 		for (int i = 0; i < tab.length; i++) {
 			map.put(i + 1, tab[i]);
 		}
-		map.put(10, 5);
-		map.put(11, 6000);
 
-		map.put(12, 6458); //TODO : finir ce bug !!!!
-		
-		Map<Integer, Integer> sortedMap = Tri.sortMapByValue(map);
+		Map<Integer, Integer> hmap = Tri.sortByValues(map);
 		int c = 1;
 		int pos = 1;
 		int lastValue = -1;
-		for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-			System.out.println(lastValue);
-			if(lastValue != entry.getValue()) {
+		for (Map.Entry<Integer, Integer> entry : hmap.entrySet()) {
+			if (lastValue != entry.getValue()) {
 				pos = c;
 				lastValue = entry.getValue();
-				
-			}else {
-				System.out.println("elese");
 			}
 			System.out.println(pos + "° Candidat " + (entry.getKey()) + " : " + entry.getValue());
 			c++;
