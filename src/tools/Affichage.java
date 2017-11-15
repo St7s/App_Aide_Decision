@@ -3,6 +3,7 @@ package tools;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Affichage {
 
@@ -33,10 +34,9 @@ public class Affichage {
 	public static void afficheClassement(int[] tab) {
 		System.out.println("______");
 		System.out.println("Voici la liste trié des candidats :");
-		Map<Integer, Integer> map = new HashMap<>();
-		for (int i = 0; i < tab.length; i++) {
-			map.put(i + 1, tab[i]);
-		}
+		HashMap<Integer, Integer> map = Tri.toHashMap(tab);
+
+		map.put(11, 6458);
 
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);
 		int c = 1;
@@ -59,14 +59,20 @@ public class Affichage {
 	public static void afficheGagnant(int[] tab) {
 		System.out.println("______");
 		System.out.println("Voici le ou les gagnants :");
-		Arrays.sort(tab);
-		int c = tab.length - 1;
-		int value = tab[c]; // on prend le dernier qui a donc le plus grand score
+		HashMap<Integer, Integer> map = Tri.toHashMap(tab);
 
-		while (c > 0 && tab[c] == value) {
-			System.out.println("\t candidat " + (c + 1) + " : " + tab[c]);
-			c--;
+		Map<Integer, Integer> hmap = Tri.sortByValues(map);
+
+		Entry<Integer, Integer> entry2 = hmap.entrySet().iterator().next();
+		int value = entry2.getValue(); // on prend le premier qui a donc le plus grand score
+
+		// on cherche les ex-equo
+		for (Entry<Integer, Integer> entry : hmap.entrySet()) {
+			if (value == entry.getValue()) {
+				System.out.println("Candidat " + (entry.getKey()) + " : " + entry.getValue());
+			} else {
+				break;
+			}
 		}
 	}
-
 }

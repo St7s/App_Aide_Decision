@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 
 public class Tri {
 
-	public static HashMap sortByValues(Map<Integer, Integer> map) {
+	public static HashMap<Integer, Integer> sortByValues(Map<Integer, Integer> map) {
 		List<Object> list = new LinkedList<Object>(map.entrySet());
 		// Defined Custom Comparator here
 		Collections.sort(list, new Comparator<Object>() {
@@ -28,6 +28,14 @@ public class Tri {
 			sortedHashMap.put((Integer) entry.getKey(), (Integer) entry.getValue());
 		}
 		return sortedHashMap;
+	}
+	
+	public static HashMap<Integer, Integer> toHashMap(int[] tab){
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < tab.length; i++) {
+			map.put(i + 1, tab[i]);
+		}
+		return map;
 	}
 
 }
