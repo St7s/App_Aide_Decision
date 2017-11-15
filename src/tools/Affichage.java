@@ -36,8 +36,6 @@ public class Affichage {
 		System.out.println("Voici la liste trié des candidats :");
 		HashMap<Integer, Integer> map = Tri.toHashMap(tab);
 
-		map.put(11, 6458);
-
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);
 		int c = 1;
 		int pos = 1;
