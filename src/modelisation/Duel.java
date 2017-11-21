@@ -14,10 +14,10 @@ public class Duel implements Comparable<Duel> {
 		}
 	};
 
-	public Duel(int g, int p) {
+	public Duel(int g, int p, boolean e) {
 		this.setGagnant(g);
 		this.setPerdant(p);
-		this.setEgal(false);
+		this.setEgal(e);
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package tools;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -34,7 +32,7 @@ public class Affichage {
 	public static void afficheClassement(int[] tab) {
 		System.out.println("______");
 		System.out.println("Voici la liste trié des candidats :");
-		HashMap<Integer, Integer> map = Tri.toHashMap(tab);
+		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);
 		int c = 1;
@@ -57,7 +55,7 @@ public class Affichage {
 	public static void afficheGagnant(int[] tab) {
 		System.out.println("______");
 		System.out.println("Voici le ou les gagnants :");
-		HashMap<Integer, Integer> map = Tri.toHashMap(tab);
+		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);
 
