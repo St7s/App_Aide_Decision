@@ -34,13 +34,30 @@ public class Condorcet {
 		int v2 = 0;
 		for (int p1 = 0; p1 < nbRow - 1; p1++) { // premier element
 			for (int p2 = p1 + 1; p2 < nbRow; p2++) { // deuxieme element
+			
 				for (int col = 0; col < nbCol; col++) {
-					System.out.println(p1+", " + p2 + " col=" + col);
-					if (this.donnees[p1][col] > this.donnees[p2][col]) {
+					int search1 = -1;
+					int search2 = -1;
+					while(search1 == -1 || search2 == -1) {
+						
+						for (int i = 0; i < nbRow; i++) {
+					
+							if (this.donnees[i][col] == p1+1) {
+								search1 = i;
+							} else if (this.donnees[i][col] == p2+1) {
+								search2 = i;
+							} // sinon rien
+						}
+						
+					}
+				
+					if (search1 < search2) {
 						v1++;
-					} else if (this.donnees[p1][col] < this.donnees[p2][col]) {
+					} else if (search1 > search2) {
 						v2++;
 					} // sinon rien
+					//System.out.println(p1+", " + p2 + " col=" + col);
+					
 				}
 				// System.out.println("(" + (p1 + 1) + " vs " + (p2 + 1) + ") [" + v1 + "-" + v2 + "]");
 				if (v1 > v2) {

@@ -32,6 +32,7 @@ public class Affichage {
 	public static void afficheClassement(int[] tab) {
 		System.out.println("______");
 		System.out.println("Voici la liste trié des candidats :");
+
 		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);

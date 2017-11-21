@@ -8,7 +8,7 @@ public class TestCondorcet {
 
 	public static void main(String[] args) {
 
-		int[][] donnees = CSVReader.giveMeTab("data/vote_4.csv", ",");
+		int[][] donnees = CSVReader.giveMeTab("data/vote_2.csv", ",");
 
 		Affichage.afficheDonnees(donnees);
 		Condorcet condorcet = new Condorcet(donnees);
