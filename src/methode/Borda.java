@@ -1,11 +1,5 @@
 package methode;
 
-/**
- * TODO : corriger pourquoi ça marche pas pour le profils 1 et fichier2
- * TODO : gerer n'importe quelle comme le fichier 3
- * @author adrie
- *
- */
 public class Borda {
 	
 	/**
