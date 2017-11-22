@@ -34,38 +34,36 @@ public class Condorcet {
 		int v2 = 0;
 		for (int p1 = 0; p1 < nbRow - 1; p1++) { // premier element
 			for (int p2 = p1 + 1; p2 < nbRow; p2++) { // deuxieme element
-			
-				for (int col = 0; col < nbCol; col++) {
+
+				for (int col = 0; col < nbCol; col++) { // pour chaque colonne
 					int search1 = -1;
 					int search2 = -1;
-					while(search1 == -1 || search2 == -1) {
-						
-						for (int i = 0; i < nbRow; i++) {
 					
-							if (this.donnees[i][col] == p1+1) {
-								search1 = i;
-							} else if (this.donnees[i][col] == p2+1) {
-								search2 = i;
-							} // sinon rien
-						}
-						
+					// on va chercher qui de p1 ou p2 est voté plus haut que l'autre
+					for (int i = 0; i < nbRow; i++) {
+						if (search1 != -1 && search2 != -1)
+							break;// on arrete
+						if (this.donnees[i][col] == p1 + 1) {
+							search1 = i;
+						} else if (this.donnees[i][col] == p2 + 1) {
+							search2 = i;
+						} // sinon on continu à chercher
 					}
-				
+
+					// on incremente la valeur de celui qui est voté pour cette colonne
 					if (search1 < search2) {
 						v1++;
 					} else if (search1 > search2) {
 						v2++;
 					} // sinon rien
-					//System.out.println(p1+", " + p2 + " col=" + col);
-					
 				}
-				// System.out.println("(" + (p1 + 1) + " vs " + (p2 + 1) + ") [" + v1 + "-" + v2 + "]");
+
+				//on ajoute dans notre liste de duelss
 				if (v1 > v2) {
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, false));
 				} else if (v1 < v2) {
 					this.getListDuel().add(new Duel(p2 + 1, p1 + 1, false));
 				} else { // sinon egalité
-					System.out.println("egalité");
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, true));
 				}
 				v1 = 0;
@@ -73,9 +71,9 @@ public class Condorcet {
 			}
 		}
 
-		System.out.println(this.getListDuel());
-		Collections.sort(this.getListDuel(), Duel.COMPARATOR);
-		System.out.println(this.getListDuel());
+		// System.out.println(this.getListDuel());
+		Collections.sort(this.getListDuel(), Duel.COMPARATOR); // on trie
+		// System.out.println(this.getListDuel());
 
 		int i = 0;
 		int y = 0;

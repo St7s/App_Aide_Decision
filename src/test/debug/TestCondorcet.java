@@ -16,6 +16,7 @@ public class TestCondorcet {
 		int[] res = condorcet.calculCondorcet();
 
 		Affichage.afficheClassement(res);
+
 		Affichage.afficheGagnant(res);
 
 	}
