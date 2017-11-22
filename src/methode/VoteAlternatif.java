@@ -10,10 +10,7 @@ public class VoteAlternatif {
 	private VoteAlternatif() {
 	}
 
-	// TODO : elimine le dernier à chaque tours,
-	// les voix sont reportée
-	// on verifie que le premier à le nombre absolu
-
+	// TODO : symplifier code pour faire Coombs
 	public static int[] calculVoteAlternatif(int[][] donnees) {
 
 		int nbCandidat = donnees.length;
@@ -29,15 +26,13 @@ public class VoteAlternatif {
 
 			for (int j = 0; j < nbVotant; j++) {
 				int n = 0;
-
-				while (n < nbCandidat && listElimine.contains(new Integer(donnees[n][j]))) {
+				while (n < nbCandidat && listElimine.contains(donnees[n][j])) {
 					n++;
 				}
 
 				if (n < nbCandidat)
 					result[donnees[n][j] - 1] += 1;
 				// sinon on ajoute pas
-
 			}
 
 			int majAbs = nbVotant / 2 + 1;
@@ -49,20 +44,17 @@ public class VoteAlternatif {
 			int min = nbVotant + 1;
 			int elimine = -1;
 			for (int i = 0; i < result.length; i++) {
-				if (!listElimine.contains(i + 1)) {
-					if (result[i] < min) {
-						min = result[i];
-						elimine = i;
-					}
+				if (!listElimine.contains(i + 1) && result[i] < min) {
+					min = result[i];
+					elimine = i;
 				}
 			}
-
 			listElimine.add(elimine + 1);
 		}
 
-		//ici on donne juste des pseudo points aux elements pour faire un classement
+		// ici on donne juste des pseudo points aux elements pour faire un classement
 		for (int j = 0; j < result.length; j++) {
-			result[j] = 100+listElimine.indexOf(j + 1);
+			result[j] = 100 + listElimine.indexOf(j + 1);
 		}
 		return result;
 	}
