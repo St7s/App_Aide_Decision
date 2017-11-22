@@ -10,6 +10,8 @@ public class Condorcet {
 
 	private List<Duel> listDuel;
 	private int[][] donnees;
+	private int[] nbWins;
+	private int[] nbLoses;
 
 	/**
 	 * 
@@ -17,6 +19,8 @@ public class Condorcet {
 	public Condorcet(int[][] donnees) {
 		this.setListDuel(new ArrayList<Duel>());
 		this.setDonnees(donnees);
+		this.nbLoses = new int[donnees.length];
+		this.nbWins = new int[donnees.length];
 	}
 
 	/**
@@ -58,11 +62,15 @@ public class Condorcet {
 					} // sinon rien
 				}
 
-				//on ajoute dans notre liste de duelss
+				//on ajoute dans notre liste de duels
 				if (v1 > v2) {
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, false));
+					this.nbLoses[p2]++;
+					this.nbWins[p1]++;
 				} else if (v1 < v2) {
 					this.getListDuel().add(new Duel(p2 + 1, p1 + 1, false));
+					this.nbLoses[p1]++;
+					this.nbWins[p2]++;
 				} else { // sinon egalité
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, true));
 				}
@@ -72,26 +80,10 @@ public class Condorcet {
 		}
 
 		// System.out.println(this.getListDuel());
-		Collections.sort(this.getListDuel(), Duel.COMPARATOR); // on trie
+		//Collections.sort(this.getListDuel(), Duel.COMPARATOR); // on trie
 		// System.out.println(this.getListDuel());
 
-		int i = 0;
-		int y = 0;
-		int lastWin;
-		int nbWin = 0;
-		while (i < this.getListDuel().size()) {
-			y = i;
-			nbWin = 0;
-			lastWin = this.getListDuel().get(i).getGagnant();
-			while (y < this.getListDuel().size() && this.getListDuel().get(y).getGagnant() == lastWin) {
-				nbWin++;
-				y++;
-			}
-			result[lastWin - 1] = nbWin;
-			i = y;
-		}
-
-		return result;
+		return nbWins;
 	}
 
 	/******************** GETTERS && SETTERS **********************/
