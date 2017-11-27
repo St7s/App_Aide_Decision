@@ -1,6 +1,7 @@
 package test.debug;
 
 import methode.Condorcet;
+import methode.CondorcetCopeland;
 import tools.Affichage;
 import tools.CSVReader;
 
@@ -11,9 +12,9 @@ public class TestCondorcetCopeland {
 		int[][] donnees = CSVReader.giveMeTab("data/vote_1.csv", ",");
 
 		Affichage.afficheDonnees(donnees);
-		Condorcet condorcet = new Condorcet(donnees);
+		CondorcetCopeland condorcetCopeland = new CondorcetCopeland(donnees);
 
-		int[] res = condorcet.calculCondorcetCopeland();
+		int[] res = condorcetCopeland.calculCondorcetCopeland();
 
 		Affichage.afficheClassement(res);
 

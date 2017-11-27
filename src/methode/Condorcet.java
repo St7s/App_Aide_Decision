@@ -9,10 +9,10 @@ public class Condorcet {
 
 	private List<Duel> listDuel;
 	private int[][] donnees;
-	private int[] nbWins;
-	private int[] nbLoses;
-	private int nbRow;
-	private int nbCol;
+	protected int[] nbWins;
+	protected int[] nbLoses;
+	protected int nbRow;
+	protected int nbCol;
 
 	/**
 	 * 
@@ -84,16 +84,6 @@ public class Condorcet {
 		// System.out.println(this.getListDuel());
 
 		return nbWins;
-	}
-	
-	
-	public int[] calculCondorcetCopeland() {
-		this.calculCondorcet(); // on calcule condorcet d'abord
-		int[] result = new int[nbRow];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = this.nbWins[i] - this.nbLoses[i]; // nbWins - nbLoses
-		}
-		return result; // on retourne le résultat
 	}
 
 	/******************** GETTERS && SETTERS **********************/
