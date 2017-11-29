@@ -36,8 +36,8 @@ public class Condorcet {
 
 		int v1 = 0;
 		int v2 = 0;
-		for (int p1 = 0; p1 < nbRow - 1; p1++) { // premier element
-			for (int p2 = p1 + 1; p2 < nbRow; p2++) { // deuxieme element
+		for (int p1 = 0; p1 < nbRow - 1; p1++) { // premier candidat
+			for (int p2 = p1 + 1; p2 < nbRow; p2++) { // deuxieme candidat
 
 				for (int col = 0; col < nbCol; col++) { // pour chaque colonne
 					int search1 = -1;
@@ -78,10 +78,6 @@ public class Condorcet {
 				v2 = 0;
 			}
 		}
-
-		// System.out.println(this.getListDuel());
-		//Collections.sort(this.getListDuel(), Duel.COMPARATOR); // on trie
-		// System.out.println(this.getListDuel());
 
 		return nbWins;
 	}

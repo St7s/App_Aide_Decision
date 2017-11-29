@@ -2,9 +2,6 @@ package methode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import tools.Tri;
 
 public class VoteAlternatif {
 	private VoteAlternatif() {
@@ -17,13 +14,16 @@ public class VoteAlternatif {
 		int nbVotant = donnees[0].length;
 		int[] result = new int[nbCandidat];
 
+		int winWithAbs = -1;
+
 		List<Integer> listElimine = new ArrayList<>();
 
 		for (int x = 0; x < nbCandidat; x++) {
 			for (int j = 0; j < nbCandidat; j++) {
-				result[j] = 0;
+				result[j] = 0; // on remet à 0 les scores
 			}
 
+			// on cherche pour chaque votant, quel candidat sera voté en fonction des candidat deja eliminé
 			for (int j = 0; j < nbVotant; j++) {
 				int n = 0;
 				while (n < nbCandidat && listElimine.contains(donnees[n][j])) {
@@ -35,12 +35,19 @@ public class VoteAlternatif {
 				// sinon on ajoute pas
 			}
 
+			// on cherche si un candidat gagne par l'absolu
 			int majAbs = nbVotant / 2 + 1;
 			for (int i = 0; i < result.length; i++) {
-				if (result[i] >= majAbs)
+				if (result[i] >= majAbs) {
+					winWithAbs = i;
+					System.out.println("WIIIIIIIIIIIIIIIIIIIIIIIIIN");
 					break;
+				}
 			}
+			if (winWithAbs != -1)
+				break;
 
+			// on elimine celui qui a le plus petit score
 			int min = nbVotant + 1;
 			int elimine = -1;
 			for (int i = 0; i < result.length; i++) {
@@ -54,23 +61,13 @@ public class VoteAlternatif {
 
 		// ici on donne juste des pseudo points aux elements pour faire un classement
 		for (int j = 0; j < result.length; j++) {
-			result[j] = 100 + listElimine.indexOf(j + 1);
+			result[j] = 100 - listElimine.indexOf(j + 1);
 		}
+
+		result[winWithAbs]++;
+
+		System.out.println(listElimine);
 		return result;
-	}
-
-	public static int[] giveMeRank(int[] tab) {
-		Map<Integer, Integer> map = Tri.toHashMap(tab);
-
-		Map<Integer, Integer> hmap = Tri.sortByValues(map);
-
-		int[] res = new int[tab.length];
-		int c = 0;
-		for (Map.Entry<Integer, Integer> entry : hmap.entrySet()) {
-			res[c] = entry.getKey();
-			c++;
-		}
-		return res;
 	}
 
 }
