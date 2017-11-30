@@ -16,6 +16,7 @@ public class Main {
 
 	private static Scanner sc;
 	private static final String PATH_DATA = "data";
+	private static final String PATH_OUTPUT = "resultatOutput";
 	private static final String DEFAULT_SEPARATOR_CSV = ",";
 
 	public static String[] listerChoixFichier(File repertoire) {
@@ -42,7 +43,7 @@ public class Main {
 
 		textOutPut.append(Affichage.afficheGagnant(res));
 
-		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		PrintWriter writer = new PrintWriter(PATH_OUTPUT + File.separator + filename, "UTF-8");
 		writer.println(textOutPut);
 		writer.close();
 	}
@@ -54,7 +55,7 @@ public class Main {
 
 		String res = format.format(new Date());
 
-		File dir = new File(res);
+		File dir = new File(PATH_OUTPUT + File.separator + res);
 
 		dir.mkdir();
 
