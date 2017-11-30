@@ -22,48 +22,6 @@ public class Main {
 	private static final String PATH_OUTPUT = "resultatOutput";
 	private static final String DEFAULT_SEPARATOR_CSV = ",";
 
-	public static String[] listerChoixFichier(File repertoire) {
-
-		String[] listefichiers;
-		int i;
-		listefichiers = repertoire.list();
-
-		System.out.print("0 - pour tous ");
-		for (i = 0; i < listefichiers.length; i++) {
-			listefichiers[i] = listefichiers[i].replace(".java", "");
-			System.out.print(" | " + (i + 1) + " - " + listefichiers[i]);
-		}
-		System.out.println();
-
-		return listefichiers;
-	}
-
-	public static void ecrireFichier(int[] res, String filename)
-			throws FileNotFoundException, UnsupportedEncodingException {
-
-		StringBuilder textOutPut = new StringBuilder();
-		textOutPut.append(Affichage.afficheClassement(res));
-
-		textOutPut.append(Affichage.afficheGagnant(res));
-
-		PrintWriter writer = new PrintWriter(PATH_OUTPUT + File.separator + filename, "UTF-8");
-		writer.println(textOutPut);
-		writer.close();
-	}
-
-	public static String createDir() {
-		String pattern = "dd.MM.yyyy-HH-mm-ss";
-		SimpleDateFormat format = new SimpleDateFormat(pattern);
-
-		String res = format.format(new Date());
-
-		File dir = new File(PATH_OUTPUT + File.separator + res);
-
-		dir.mkdir();
-
-		return res;
-	}
-
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 
 		String[] listFile = listerChoixFichier(new File(PATH_DATA));
@@ -147,6 +105,10 @@ public class Main {
 		System.out.println("#####################################################################");
 	}
 
+	/***********************
+	 * méthodes qui executent une méthode avec 1 ou tous les fichiers
+	 *****************************/
+
 	public static void runBorda(int choiceFile, String[] listFile, String pathDir)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		if (choiceFile == 0) {
@@ -207,6 +169,10 @@ public class Main {
 			execVoteAlternatif(listFile[choiceFile - 1], pathDir);
 	}
 
+	/***********************
+	 * méthodes qui executent une méthode le fichier passé en parametre, et qui vient ensuite créer un fichier de sortie
+	 *****************************/
+
 	private static void execBorda(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
 
@@ -257,6 +223,69 @@ public class Main {
 		int[] res = VoteAlternatif.calculVoteAlternatif(donnees);
 
 		ecrireFichier(res, dirToOutOut + File.separator + "execVoteAlternatif_" + fileNameSource + ".txt");
+	}
+
+	/************************** HELPERS **********************************/
+
+	/**
+	 * liste le fichier du répetoire indiqué
+	 * 
+	 * @param repertoire
+	 * @return
+	 */
+	public static String[] listerChoixFichier(File repertoire) {
+
+		String[] listefichiers;
+		int i;
+		listefichiers = repertoire.list();
+
+		System.out.print("0 - pour tous ");
+		for (i = 0; i < listefichiers.length; i++) {
+			listefichiers[i] = listefichiers[i].replace(".java", "");
+			System.out.print(" | " + (i + 1) + " - " + listefichiers[i]);
+		}
+		System.out.println();
+
+		return listefichiers;
+	}
+
+	/**
+	 * Ecris dans un fichier les résultats
+	 * 
+	 * @param res
+	 * @param filename
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
+	public static void ecrireFichier(int[] res, String filename)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		StringBuilder textOutPut = new StringBuilder();
+
+		textOutPut.append(Affichage.afficheClassement(res));
+		textOutPut.append(Affichage.afficheGagnant(res));
+
+		PrintWriter writer = new PrintWriter(PATH_OUTPUT + File.separator + filename, "UTF-8");
+		writer.println(textOutPut);
+		writer.close();
+	}
+
+	/**
+	 * Créer un répetoire avec la date du moment
+	 * 
+	 * @return
+	 */
+	public static String createDir() {
+		String pattern = "dd.MM.yyyy-HH-mm-ss";
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+
+		String res = format.format(new Date());
+
+		File dir = new File(PATH_OUTPUT + File.separator + res);
+
+		dir.mkdir();
+
+		return res;
 	}
 
 }
