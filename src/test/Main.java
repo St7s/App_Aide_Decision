@@ -1,11 +1,22 @@
 package test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+
+import methode.Borda;
+import tools.Affichage;
+import tools.CSVReader;
 
 public class Main {
 
 	private static Scanner sc;
+	private static final String PATH_DATA = "data";
+	private static final String DEFAULT_SEPARATOR_CSV = ",";
 
 	public static String[] listerChoixFichier(File repertoire) {
 
@@ -15,6 +26,7 @@ public class Main {
 
 		System.out.print("0 - pour tous ");
 		for (i = 0; i < listefichiers.length; i++) {
+			listefichiers[i].replace(".java", "");
 			System.out.print(" | " + (i + 1) + " - " + listefichiers[i]);
 		}
 		System.out.println();
@@ -22,8 +34,36 @@ public class Main {
 		return listefichiers;
 	}
 
-	public static void main(String[] args) {
-		String[] listFile = listerChoixFichier(new File("data"));
+	public static void ecrireFichier(int[] res, String filename)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		StringBuilder textOutPut = new StringBuilder();
+		textOutPut.append(Affichage.afficheClassement(res));
+
+		textOutPut.append(Affichage.afficheGagnant(res));
+
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		writer.println(textOutPut);
+		writer.close();
+	}
+
+	public static String createDir() {
+		String pattern = "dd.MM.yyyy-HH-mm-ss";
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		Date date = new Date();
+
+		String res = format.format(new Date());
+
+		File dir = new File(res);
+
+		dir.mkdir();
+
+		return res;
+	}
+
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+
+		String[] listFile = listerChoixFichier(new File(PATH_DATA));
 		int nbFile = listFile.length;
 
 		sc = new Scanner(System.in);
@@ -48,17 +88,54 @@ public class Main {
 		while (choiceMethod == -1 || choiceMethod > nbMethod) {
 			if (choiceMethod > nbMethod)
 				System.out.println("Erreur, veuiller choisir un nombre compris entre 0 et " + nbMethod + " pour : ");
-			System.out.println("Quel méthode voulez vous éxecuter ?");
+			System.out.println("Quelle mÃ©thode voulez vous  exÃ©cuter ?");
 			choiceMethod = sc.nextInt();
 		}
 
 		if (choiceMethod == 0)
-			System.out.println("Vous avez choisi 'toutes les méthodes'");
+			System.out.println("Vous avez choisi 'toutes les mÃ©thodes'");
 		else
 			System.out.println("Vous avez choisi : " + listMethod[choiceMethod - 1]);
 
 		// Todo executer et ecrire dans fichier avec la date
 
+		// On crï¿½er un dossier
+		String pathDir = createDir();
+
+		if (choiceFile == 0) {
+			// all
+		} else {
+			// listFile[choiceFile - 1]
+		}
+
+		if (choiceMethod == 0) {
+			// all
+		} else {
+			switch (listMethod[choiceMethod - 1]) {
+			case "Borda.java":
+				if (choiceFile == 0) {
+					for (String file : listFile) {
+						execBorda(file, pathDir);
+					}
+				} else
+					execBorda(listFile[choiceFile - 1], pathDir);
+				break;
+
+			default:
+				System.out.println("other");
+				break;
+			}
+		}
+	}
+
+	private static void execBorda(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		int[] res = Borda.calculBorda(donnees);
+
+		ecrireFichier(res, dirToOutOut + File.separator + "borda_" + fileNameSource + ".txt");
 	}
 
 }

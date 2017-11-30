@@ -29,9 +29,10 @@ public class Affichage {
 	 * 
 	 * @param tab
 	 */
-	public static void afficheClassement(int[] tab) {
-		System.out.println("______");
-		System.out.println("Voici la liste trié des candidats :");
+	public static String afficheClassement(int[] tab) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n______");
+		sb.append("\nVoici la liste triÃ© des candidats :");
 
 		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
@@ -44,18 +45,23 @@ public class Affichage {
 				pos = c;
 				lastValue = entry.getValue();
 			}
-			System.out.println(pos + "° Candidat " + (entry.getKey()) + " : " + entry.getValue());
+			sb.append("\n\t" + pos + "Â° Candidat nÂ°" + (entry.getKey()) + " : " + entry.getValue());
 			c++;
 		}
+		// on affiche
+		System.out.println(sb.toString());
+		// on retourne la chaine ecrite
+		return sb.toString();
 	}
 
 	/**
 	 * 
 	 * @param tab
 	 */
-	public static void afficheGagnant(int[] tab) {
-		System.out.println("______");
-		System.out.println("Voici le ou les gagnants :");
+	public static String afficheGagnant(int[] tab) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n______");
+		sb.append("\nVoici le ou les gagnants :");
 		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
 		Map<Integer, Integer> hmap = Tri.sortByValues(map);
@@ -66,10 +72,14 @@ public class Affichage {
 		// on cherche les ex-equo
 		for (Entry<Integer, Integer> entry : hmap.entrySet()) {
 			if (value == entry.getValue()) {
-				System.out.println("Candidat " + (entry.getKey()) + " : " + entry.getValue());
+				sb.append("\nCandidat " + (entry.getKey()) + " : " + entry.getValue());
 			} else {
 				break;
 			}
 		}
+		// on affiche
+		System.out.println(sb.toString());
+		// on retourne la chaine ecrite
+		return sb.toString();
 	}
 }
