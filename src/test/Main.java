@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 import methode.Borda;
+import methode.Condorcet;
+import methode.CondorcetCopeland;
+import methode.VoteAlternatif;
 import tools.Affichage;
 import tools.CSVReader;
 
@@ -27,7 +30,7 @@ public class Main {
 
 		System.out.print("0 - pour tous ");
 		for (i = 0; i < listefichiers.length; i++) {
-			listefichiers[i].replace(".java", "");
+			listefichiers[i] = listefichiers[i].replace(".java", "");
 			System.out.print(" | " + (i + 1) + " - " + listefichiers[i]);
 		}
 		System.out.println();
@@ -51,7 +54,6 @@ public class Main {
 	public static String createDir() {
 		String pattern = "dd.MM.yyyy-HH-mm-ss";
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
-		Date date = new Date();
 
 		String res = format.format(new Date());
 
@@ -98,35 +100,111 @@ public class Main {
 		else
 			System.out.println("Vous avez choisi : " + listMethod[choiceMethod - 1]);
 
-		// Todo executer et ecrire dans fichier avec la date
-
-		// On cr�er un dossier
+		// On créer un dossier
 		String pathDir = createDir();
 
-		if (choiceFile == 0) {
-			// all
-		} else {
-			// listFile[choiceFile - 1]
-		}
-
 		if (choiceMethod == 0) {
-			// all
+			// on execute tous
+			runBorda(choiceFile, listFile, pathDir);
+			runCondorcet(choiceFile, listFile, pathDir);
+			runCondorcetCopeland(choiceFile, listFile, pathDir);
+			runVote1Tour(choiceFile, listFile, pathDir);
+			runVote2Tours(choiceFile, listFile, pathDir);
+			runVoteAlternatif(choiceFile, listFile, pathDir);
 		} else {
+			// on execute seulement celui qui est demandé
 			switch (listMethod[choiceMethod - 1]) {
-			case "Borda.java":
-				if (choiceFile == 0) {
-					for (String file : listFile) {
-						execBorda(file, pathDir);
-					}
-				} else
-					execBorda(listFile[choiceFile - 1], pathDir);
+			case "Borda":
+				runBorda(choiceFile, listFile, pathDir);
+				break;
+			case "Condorcet":
+				runCondorcet(choiceFile, listFile, pathDir);
+				break;
+			case "CondorcetCopeland":
+				runCondorcetCopeland(choiceFile, listFile, pathDir);
+				break;
+			case "Vote1Tour":
+				runVote1Tour(choiceFile, listFile, pathDir);
+				break;
+			case "Vote2Tours":
+				runVote2Tours(choiceFile, listFile, pathDir);
+				break;
+			case "VoteAlternatif":
+				runVoteAlternatif(choiceFile, listFile, pathDir);
 				break;
 
 			default:
-				System.out.println("other");
+				System.out.println("TODO : " + listMethod[choiceMethod - 1]
+						+ " pas encore implémenter ou pas encore disponible dans le main");
 				break;
 			}
 		}
+
+		System.out.println("#####################################################################");
+		System.out.println("#####################################################################");
+		System.out.println("Résultat disponible dans le dossier : " + PATH_OUTPUT + File.separator + pathDir);
+		System.out.println("#####################################################################");
+		System.out.println("#####################################################################");
+	}
+
+	public static void runBorda(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execBorda(file, pathDir);
+			}
+		} else
+			execBorda(listFile[choiceFile - 1], pathDir);
+	}
+
+	public static void runCondorcet(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execCondorcet(file, pathDir);
+			}
+		} else
+			execCondorcet(listFile[choiceFile - 1], pathDir);
+	}
+
+	public static void runCondorcetCopeland(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execCondorcetCopeland(file, pathDir);
+			}
+		} else
+			execCondorcetCopeland(listFile[choiceFile - 1], pathDir);
+	}
+
+	public static void runVote1Tour(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execVote1Tour(file, pathDir);
+			}
+		} else
+			execVote1Tour(listFile[choiceFile - 1], pathDir);
+	}
+
+	public static void runVote2Tours(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execVote2Tours(file, pathDir);
+			}
+		} else
+			execVote2Tours(listFile[choiceFile - 1], pathDir);
+	}
+
+	public static void runVoteAlternatif(int choiceFile, String[] listFile, String pathDir)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (choiceFile == 0) {
+			for (String file : listFile) {
+				execVoteAlternatif(file, pathDir);
+			}
+		} else
+			execVoteAlternatif(listFile[choiceFile - 1], pathDir);
 	}
 
 	private static void execBorda(String fileNameSource, String dirToOutOut)
@@ -136,7 +214,49 @@ public class Main {
 
 		int[] res = Borda.calculBorda(donnees);
 
-		ecrireFichier(res, dirToOutOut + File.separator + "borda_" + fileNameSource + ".txt");
+		ecrireFichier(res, dirToOutOut + File.separator + "execBorda_" + fileNameSource + ".txt");
+	}
+
+	private static void execCondorcet(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		Condorcet condorcet = new Condorcet(donnees);
+		int[] res = condorcet.calculCondorcet();
+
+		ecrireFichier(res, dirToOutOut + File.separator + "execCondorcet_" + fileNameSource + ".txt");
+	}
+
+	private static void execCondorcetCopeland(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		CondorcetCopeland condorcetCopeland = new CondorcetCopeland(donnees);
+		int[] res = condorcetCopeland.calculCondorcetCopeland();
+
+		ecrireFichier(res, dirToOutOut + File.separator + "execCondorcetCopeland_" + fileNameSource + ".txt");
+	}
+
+	private static void execVote1Tour(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		// TODO : juste un copier coller en changeant bien le nom dans la derniere instrution
+	}
+
+	private static void execVote2Tours(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+		// TODO : juste un copier coller en changeant bien le nom dans la derniere instrution
+	}
+
+	private static void execVoteAlternatif(String fileNameSource, String dirToOutOut)
+			throws FileNotFoundException, UnsupportedEncodingException {
+
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		int[] res = VoteAlternatif.calculVoteAlternatif(donnees);
+
+		ecrireFichier(res, dirToOutOut + File.separator + "execVoteAlternatif_" + fileNameSource + ".txt");
 	}
 
 }
