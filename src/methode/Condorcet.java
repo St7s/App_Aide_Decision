@@ -33,7 +33,6 @@ public class Condorcet {
 	 */
 	public int[] calculCondorcet() {
 
-
 		int v1 = 0;
 		int v2 = 0;
 		for (int p1 = 0; p1 < nbRow - 1; p1++) { // premier candidat
@@ -42,8 +41,8 @@ public class Condorcet {
 				for (int col = 0; col < nbCol; col++) { // pour chaque colonne
 					int search1 = -1;
 					int search2 = -1;
-					
-					// on va chercher qui de p1 ou p2 est voté plus haut que l'autre
+
+					// on va chercher qui de p1 ou p2 est votï¿½ plus haut que l'autre
 					for (int i = 0; i < nbRow; i++) {
 						if (search1 != -1 && search2 != -1)
 							break;// on arrete
@@ -51,10 +50,10 @@ public class Condorcet {
 							search1 = i;
 						} else if (this.donnees[i][col] == p2 + 1) {
 							search2 = i;
-						} // sinon on continu à chercher
+						} // sinon on continu ï¿½ chercher
 					}
 
-					// on incremente la valeur de celui qui est voté pour cette colonne
+					// on incremente la valeur de celui qui est votï¿½ pour cette colonne
 					if (search1 < search2) {
 						v1++;
 					} else if (search1 > search2) {
@@ -62,7 +61,7 @@ public class Condorcet {
 					} // sinon rien
 				}
 
-				//on ajoute dans notre liste de duels
+				// on ajoute dans notre liste de duels
 				if (v1 > v2) {
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, false));
 					this.nbLoses[p2]++;
@@ -71,8 +70,9 @@ public class Condorcet {
 					this.getListDuel().add(new Duel(p2 + 1, p1 + 1, false));
 					this.nbLoses[p1]++;
 					this.nbWins[p2]++;
-				} else { // sinon egalité
+				} else { // sinon egalitÃ©
 					this.getListDuel().add(new Duel(p1 + 1, p2 + 1, true));
+					System.out.println("Ã©galitÃ© entre nÂ°" + (p1 + 1) + " et nÂ°" + (p2 + 1));
 				}
 				v1 = 0;
 				v2 = 0;

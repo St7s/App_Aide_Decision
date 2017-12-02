@@ -60,9 +60,14 @@ public class VoteAlternatif {
 
 		// ici on donne juste des pseudo points aux elements pour faire un classement
 		for (int j = 0; j < result.length; j++) {
-			result[j] = 100 - listElimine.indexOf(j + 1);
+			if (listElimine.indexOf(j + 1) == -1)
+				result[j] = 0; // 0 points à ceux qui n'ont pas était eliminé
+			else
+				result[j] = 0 - (listElimine.size() - listElimine.indexOf(j + 1));// on enleve des points aux
+																					// eliminés
 		}
 
+		// on ajoute un point de plus au gagnant
 		result[winWithAbs]++;
 
 		return result;
