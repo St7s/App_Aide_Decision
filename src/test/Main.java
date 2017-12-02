@@ -11,6 +11,8 @@ import java.util.Scanner;
 import methode.Borda;
 import methode.Condorcet;
 import methode.CondorcetCopeland;
+import methode.Vote1Tour;
+import methode.Vote2Tours;
 import methode.VoteAlternatif;
 import tools.Affichage;
 import tools.CSVReader;
@@ -98,11 +100,9 @@ public class Main {
 			}
 		}
 
-		System.out.println("#####################################################################");
-		System.out.println("#####################################################################");
+		System.out.println("\n########################################################################");
 		System.out.println("Résultat disponible dans le dossier : " + PATH_OUTPUT + File.separator + pathDir);
-		System.out.println("#####################################################################");
-		System.out.println("#####################################################################");
+		System.out.println("########################################################################");
 	}
 
 	/***********************
@@ -207,12 +207,21 @@ public class Main {
 
 	private static void execVote1Tour(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		// TODO : juste un copier coller en changeant bien le nom dans la derniere instrution
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		int[] res = Vote1Tour.calculVote1Tour(donnees);
+
+		ecrireFichier(res, dirToOutOut + File.separator + "execVote1Tour_" + fileNameSource + ".txt");
 	}
 
 	private static void execVote2Tours(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		// TODO : juste un copier coller en changeant bien le nom dans la derniere instrution
+		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
+
+		int[] res = new int[1];
+		res[0] = Vote2Tours.calculVote2Tours(donnees);
+
+		ecrireFichier(res, dirToOutOut + File.separator + "execVote1Tour_" + fileNameSource + ".txt");
 	}
 
 	private static void execVoteAlternatif(String fileNameSource, String dirToOutOut)

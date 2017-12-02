@@ -20,10 +20,10 @@ public class VoteAlternatif {
 
 		for (int x = 0; x < nbCandidat; x++) {
 			for (int j = 0; j < nbCandidat; j++) {
-				result[j] = 0; // on remet à 0 les scores
+				result[j] = 0; // on remet ï¿½ 0 les scores
 			}
 
-			// on cherche pour chaque votant, quel candidat sera voté en fonction des candidat deja eliminé
+			// on cherche pour chaque votant, quel candidat sera votï¿½ en fonction des candidat deja eliminï¿½
 			for (int j = 0; j < nbVotant; j++) {
 				int n = 0;
 				while (n < nbCandidat && listElimine.contains(donnees[n][j])) {
@@ -40,7 +40,6 @@ public class VoteAlternatif {
 			for (int i = 0; i < result.length; i++) {
 				if (result[i] >= majAbs) {
 					winWithAbs = i;
-					System.out.println("WIIIIIIIIIIIIIIIIIIIIIIIIIN");
 					break;
 				}
 			}
@@ -66,7 +65,6 @@ public class VoteAlternatif {
 
 		result[winWithAbs]++;
 
-		System.out.println(listElimine);
 		return result;
 	}
 
