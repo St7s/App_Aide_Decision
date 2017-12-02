@@ -1,6 +1,6 @@
 package test.debug;
 
-import methode.Condorcet;
+
 import methode.CondorcetCopeland;
 import tools.Affichage;
 import tools.CSVReader;

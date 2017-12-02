@@ -1,5 +1,5 @@
 package methode;
-// TODO : 4_1
+
 
 import java.util.Map;
 
@@ -13,15 +13,19 @@ public class Vote1Tour {
 		int nbVotant = donnees[0].length;
 		int[] resultVote1Tour = new int[nbCandidat];
 		resultVote1Tour[0] = 0;
-		System.out.println(nbVotant + "_" + nbCandidat);
+
+//on prend en charge que la 1ere ligne (les premiers choix des votants) 
+// on lis la valeur de la premiere colonne et on rajoute 1 a la colonne corespondant au candidat dans le tableau resultVote1Tour
+// puis on passe à la deuxieme colonne et ainsi de suite... . 
 		for (int j = 0; j < nbVotant; j++) {
-			System.out.println("for" + j + "_" + donnees[0][j]);
 			resultVote1Tour[donnees[0][j] - 1] += 1;
 		}
 
 		return resultVote1Tour;
 	}
 
+
+// methode permettant de classer les candidats dans un tableau selon vote 1 tour
 	public static int[] giveMeRank(int[] tab) {
 		Map<Integer, Integer> map = Tri.toHashMap(tab);
 
