@@ -9,7 +9,7 @@ public class TestCondorcetCopeland {
 
 	public static void main(String[] args) {
 
-		int[][] donnees = CSVReader.giveMeTab("data/vote_1.csv", ",");
+		int[][] donnees = CSVReader.giveMeTab("data/vote_8.csv", ",");
 
 		Affichage.afficheDonnees(donnees);
 		CondorcetCopeland condorcetCopeland = new CondorcetCopeland(donnees);

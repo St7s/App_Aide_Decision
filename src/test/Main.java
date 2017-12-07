@@ -240,9 +240,9 @@ public class Main {
 		
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
 
-		int[] res = Vote2Tours.calculVote2Tours(donnees);
+		/*int[] res = Vote2Tours.calculVote2Tours(donnees);
 
-		ecrireFichier(res, dirToOutOut + File.separator + "execVote2Tours_" + fileNameSource + ".txt");
+		ecrireFichier(res, dirToOutOut + File.separator + "execVote2Tours_" + fileNameSource + ".txt");*/
 
 	}
 

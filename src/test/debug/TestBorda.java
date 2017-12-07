@@ -8,7 +8,7 @@ public class TestBorda {
 
 	public static void main(String[] args) {
 
-		int[][] donnees = CSVReader.giveMeTab("data/vote_2.csv", ",");
+		int[][] donnees = CSVReader.giveMeTab("data/vote_8.csv", ",");
 
 		Affichage.afficheDonnees(donnees);
 
