@@ -7,7 +7,6 @@ public class VoteAlternatif {
 	private VoteAlternatif() {
 	}
 
-	// TODO : symplifier code pour faire Coombs
 	public static int[] calculVoteAlternatif(int[][] donnees) {
 
 		int nbCandidat = donnees.length;
@@ -20,10 +19,10 @@ public class VoteAlternatif {
 
 		for (int x = 0; x < nbCandidat; x++) {
 			for (int j = 0; j < nbCandidat; j++) {
-				result[j] = 0; // on remet � 0 les scores
+				result[j] = 0; // on remet les scores
 			}
 
-			// on cherche pour chaque votant, quel candidat sera vot� en fonction des candidat deja elimin�
+			// on cherche pour chaque votant, quel candidat sera voté en fonction des candidat deja eliminé
 			for (int j = 0; j < nbVotant; j++) {
 				int n = 0;
 				while (n < nbCandidat && listElimine.contains(donnees[n][j])) {
@@ -72,5 +71,4 @@ public class VoteAlternatif {
 
 		return result;
 	}
-
 }
