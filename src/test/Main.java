@@ -175,9 +175,9 @@ public class Main {
 
 	private static void execBorda(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execBorda + :"+fileNameSource);
+		System.out.println("execBorda + :" + fileNameSource);
 		System.out.println("==================================");
 
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
@@ -189,9 +189,9 @@ public class Main {
 
 	private static void execCondorcet(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execCondorcet + :"+fileNameSource);
+		System.out.println("execCondorcet + :" + fileNameSource);
 		System.out.println("==================================");
 
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
@@ -204,11 +204,11 @@ public class Main {
 
 	private static void execCondorcetCopeland(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execCondorcetCopeland + :"+fileNameSource);
+		System.out.println("execCondorcetCopeland + :" + fileNameSource);
 		System.out.println("==================================");
-		
+
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
 
 		CondorcetCopeland condorcetCopeland = new CondorcetCopeland(donnees);
@@ -219,13 +219,13 @@ public class Main {
 
 	private static void execVote1Tour(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execVote1Tour + :"+fileNameSource);
+		System.out.println("execVote1Tour + :" + fileNameSource);
 		System.out.println("==================================");
-		
+
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
-		
+
 		int[] res = Vote1Tour.calculVote1Tour(donnees);
 
 		ecrireFichier(res, dirToOutOut + File.separator + "execVote1Tour_" + fileNameSource + ".txt");
@@ -233,24 +233,24 @@ public class Main {
 
 	private static void execVote2Tours(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execVote2Tours + :"+fileNameSource);
+		System.out.println("execVote2Tours + :" + fileNameSource);
 		System.out.println("==================================");
-		
+
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
 
-		/*int[] res = Vote2Tours.calculVote2Tours(donnees);
+		int[] res = Vote2Tours.calculVote2Tours(donnees);
 
-		ecrireFichier(res, dirToOutOut + File.separator + "execVote2Tours_" + fileNameSource + ".txt");*/
+		ecrireFichier(res, dirToOutOut + File.separator + "execVote2Tours_" + fileNameSource + ".txt");
 
 	}
 
 	private static void execVoteAlternatif(String fileNameSource, String dirToOutOut)
 			throws FileNotFoundException, UnsupportedEncodingException {
-		
+
 		System.out.println("==================================");
-		System.out.println("execVoteAlternatif + :"+fileNameSource);
+		System.out.println("execVoteAlternatif + :" + fileNameSource);
 		System.out.println("==================================");
 
 		int[][] donnees = CSVReader.giveMeTab(PATH_DATA + File.separator + fileNameSource, DEFAULT_SEPARATOR_CSV);
